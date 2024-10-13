@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrace uživatele</title>
+  <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Registrace uživatele</h1>
+    <p class="subtitle">Zaregistrujte se, je to absolutně bezplatné</p>
+    <form id="registrationForm" enctype="multipart/form-data">
+      <label for="firstName">Jméno:</label>
+      <input type="text" id="firstName" name="firstName" required>
+
+      <label for="lastName">Příjmení:</label>
+      <input type="text" id="lastName" name="lastName" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Telefon:</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="gender">Pohlaví:</label>
+      <select id="gender" name="gender" required>
+        <option value="">--Vyberte pohlaví--</option>
+        <option value="male">Mužské</option>
+        <option value="female">Ženské</option>
+        <option value="other">Jiné</option>
+      </select>
+
+      <label for="profilePicture">Profilová fotografie:</label>
+      <input type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+
+      <label for="username">Uživatelské jméno:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Heslo:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Registrovat se</button>
+    </form>
+  </div>
+
+  <script src="js/validation.js"></script>
+</body>
+</html>
