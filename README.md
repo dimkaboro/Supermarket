@@ -6,6 +6,7 @@ Frontend (JavaScript/HTML/CSS):
 Responzivní uživatelské rozhraní pro mobilní i desktopové zobrazení.
 Přihlašovací a registrační formulář s validací vstupů (email, telefon, heslo atd.).
 Podpora pro nahrání profilové fotografie, která je automaticky zpracována a uložena v jednotném formátu.
+
 Backend (PHP):
 
 Bezpečné zpracování a ukládání dat v souladu s GDPR (hashování hesel, šifrování citlivých údajů).
