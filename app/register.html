@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrace uživatele</title>
+  <link rel="stylesheet" href="../css/registration.css"> <!-- Odkaz na soubor CSS pro stylování -->
+</head>
+<body>
+  <div class="container">
+    <h1>Registrace uživatele</h1>
+    <p class="subtitle">Zaregistrujte se, je to absolutně bezplatné</p>
+    <!-- Formulář pro registraci uživatele -->
+    <form id="registrationForm" action="../php/register.php" method="POST" enctype="multipart/form-data"> <!-- Odkaz na soubor PHP pro zpracování registrace -->
+      <label for="firstName">Jméno:</label>
+      <input type="text" id="firstName" name="first_name" required>
+      <span id="nameError" class="error-message"></span> <!-- Pole pro zobrazení chyb jména -->
+
+      <label for="lastName">Příjmení:</label>
+      <input type="text" id="lastName" name="last_name" required>
+      <span id="lastNameError" class="error-message"></span> <!-- Pole pro zobrazení chyb příjmení -->
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <span id="emailError" class="error-message"></span> <!-- Pole pro zobrazení chyb emailu -->
+
+      <label for="phone">Telefon:</label>
+      <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,13}$" placeholder="+420123456789">
+      <span id="phoneError" class="error-message"></span> <!-- Pole pro zobrazení chyb telefonu -->
+
+      <label for="gender">Pohlaví:</label>
+      <select id="gender" name="gender" required>
+        <option value="">--Vyberte pohlaví--</option>
+        <option value="male">Mužské</option>
+        <option value="female">Ženské</option>
+        <option value="other">Jiné</option>
+      </select>
+      <span id="genderError" class="error-message"></span> <!-- Pole pro zobrazení chyb pohlaví -->
+
+      <label for="profilePicture">Profilová fotografie:</label>
+      <input type="file" id="profilePicture" name="profile_picture" accept="image/jpeg, image/png" required>
+      <span id="profilePictureError" class="error-message"></span> <!-- Pole pro zobrazení chyb profilové fotografie -->
+
+      <label for="username">Uživatelské jméno:</label>
+      <input type="text" id="username" name="username" required pattern="^[A-Za-z0-9_]{3,15}$" placeholder="min 3 znaky, bez mezer">
+      <span id="usernameError" class="error-message"></span> <!-- Pole pro zobrazení chyb uživatelského jména -->
+
+      <label for="password">Heslo:</label>
+      <input type="password" id="password" name="password" required pattern=".{6,}" placeholder="min 6 znaků">
+      <span id="passwordError" class="error-message"></span> <!-- Pole pro zobrazení chyb hesla -->
+
+      <button type="submit">Registrovat se</button>
+    </form>
+  </div>
+
+  <script src="../js/validation.js"></script> <!-- Odkaz na soubor JS pro validaci -->
+</body>
+</html>

@@ -1,0 +1,192 @@
+/* Připojení fontu Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Základní styly pro tělo stránky */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f0f0 url('../images/background-image.png') no-repeat center center fixed; /* Aktualizovaná cesta k obrázku */
+    background-size: cover;
+}
+
+/* Kontejner pro formulář */
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efekt při najetí myší na kontejner */
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Styl pro hlavní nadpis */
+h1 {
+    text-align: center;
+    color: #4caf50;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease;
+}
+
+/* Styl pro podnadpis */
+p.subtitle {
+    text-align: center;
+    color: #888888;
+    margin-bottom: 30px;
+    animation: fadeIn 1.2s ease;
+}
+
+/* Styl pro formulář */
+form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Styl pro štítky */
+label {
+    font-weight: 500;
+    color: #4caf50;
+}
+
+/* Styl pro vstupní pole */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 24px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9f9f9;
+}
+
+/* Styl pro vstupní pole při zaostření */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+select:focus,
+input[type="file"]:focus {
+    border-color: #4caf50;
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+/* Styl pro tlačítko odeslání */
+button[type="submit"] {
+    padding: 15px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Efekt při najetí myší na tlačítko odeslání */
+button[type="submit"]:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+/* Styl pro tlačítko odeslání při zaostření */
+button[type="submit"]:focus-visible {
+    outline: 2px solid #4caf50;
+    outline-offset: 2px;
+}
+
+/* Styl pro chybové zprávy */
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+/* Styl pro prvky s plnou šířkou */
+.full-width {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Styl pro sociální přihlášení */
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Styl pro ikony sociálního přihlášení */
+.social-login img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Efekt při najetí myší na ikony sociálního přihlášení */
+.social-login img:hover {
+    transform: scale(1.1);
+}
+
+/* Styl pro odkaz na registraci */
+.register-link {
+    color: #4caf50;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Efekt při najetí myší na odkaz na registraci */
+.register-link:hover {
+    text-decoration: underline;
+    color: #2e7d32;
+}
+
+/* Animace pro plynulé zobrazení textu */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsivita pro mobilní zařízení */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    select,
+    input[type="file"],
+    button[type="submit"] {
+        font-size: 0.9em;
+        padding: 10px;
+    }
+}

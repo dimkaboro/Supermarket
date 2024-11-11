@@ -1,4 +1,4 @@
-/* Подключение шрифта Roboto */
+/* Nastavení základních stylů pro tělo stránky */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -9,7 +9,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Заголовки с тенями */
+/* Styly pro nadpisy h1 a h2 */
 h1, h2 {
     font-weight: bold;
     text-align: center;
@@ -17,7 +17,7 @@ h1, h2 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Навигационное меню */
+/* Styly pro hlavičku stránky */
 header {
     background-color: #4CAF50;
     padding: 10px 20px;
@@ -26,6 +26,7 @@ header {
     z-index: 1000;
 }
 
+/* Styly pro navigační menu */
 nav ul {
     list-style: none;
     margin: 0;
@@ -45,16 +46,16 @@ nav ul li a {
     font-weight: bold;
     padding: 10px 20px;
     transition: background-color 0.3s, color 0.3s, border-radius 0.3s;
-    border-radius: 10px; /* Округленные углы всегда */
+    border-radius: 10px;
 }
 
-/* Стиль при наведении */
 nav ul li a:hover {
     background-color: #388E3C;
     color: #ffffff;
-    border-radius: 10px; /* Округленные углы при наведении */
+    border-radius: 10px;
 }
 
+/* Styly pro tlačítko menu na mobilních zařízeních */
 .menu-toggle {
     display: none;
     font-size: 2em;
@@ -62,7 +63,7 @@ nav ul li a:hover {
     color: white;
 }
 
-/* Адаптивный стиль для мобильных устройств (бургер-меню) */
+/* Media query pro mobilní zařízení */
 @media (max-width: 768px) {
     nav ul {
         display: none;
@@ -84,9 +85,9 @@ nav ul li a:hover {
     }
 }
 
-/* Параллакс-эффект для баннера */
+/* Styly pro banner */
 .banner {
-    background: url('images/backgroundZacatek.jpg') no-repeat center center;
+    background: url('../images/backgroundZacatek.jpg') no-repeat center center;
     background-size: cover;
     height: 400px;
     background-attachment: fixed;
@@ -95,6 +96,7 @@ nav ul li a:hover {
     padding-top: 150px;
 }
 
+/* Styly pro obsah banneru */
 .banner-content {
     background: rgba(0, 0, 0, 0.25);
     padding: 40px;
@@ -104,6 +106,7 @@ nav ul li a:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Klíčové snímky pro animaci textu v banneru */
 @keyframes fadeInText {
     from {
         opacity: 0;
@@ -115,6 +118,7 @@ nav ul li a:hover {
     }
 }
 
+/* Styly pro nadpis v banneru */
 .banner h1 {
     margin-top: -10px;
     margin-bottom: 0px;
@@ -130,6 +134,7 @@ nav ul li a:hover {
     transition: transform 0.3s ease;
 }
 
+/* Styly pro odstavec v banneru */
 .banner p {
     margin-top: 10px;
     margin-bottom: 40px;
@@ -138,7 +143,7 @@ nav ul li a:hover {
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* Кнопка с градиентом */
+/* Styly pro tlačítka */
 .btn {
     background: linear-gradient(135deg, #5ac35d, #3c9442);
     color: white;
@@ -155,13 +160,14 @@ nav ul li a:hover {
     box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
 }
 
+/* Styly pro sekci produktů */
 .products {
-    margin-top: -40px; /* Поднимаем секцию вверх */
-    padding-top: 40px; /* Уменьшаем отступ сверху */
-    padding-bottom: 80px; /* Оставляем отступ снизу для баланса */
+    margin-top: -40px;
+    padding-top: 40px;
+    padding-bottom: 80px;
 }
 
-/* Карточки продуктов с анимацией при прокрутке */
+/* Styly pro mřížku produktů */
 .product-grid {
     display: flex;
     justify-content: center;
@@ -169,6 +175,7 @@ nav ul li a:hover {
     gap: 40px;
 }
 
+/* Styly pro jednotlivé produkty */
 .product {
     border: 1px dashed #ccc;
     border-radius: 15px;
@@ -197,12 +204,12 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Секция с белым пространством */
+/* Styly pro obecné sekce */
 .section {
     padding: 80px 0;
 }
 
-/* Футер */
+/* Styly pro patičku stránky */
 footer {
     background-color: #222;
     color: #ccc;
@@ -211,7 +218,7 @@ footer {
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Социальные иконки с анимацией */
+/* Styly pro sociální ikony */
 .social-icons {
     margin-top: 10px;
 }
@@ -231,7 +238,7 @@ footer {
     transform: scale(1.2) rotate(10deg);
 }
 
-/* Адаптивный стиль для больших экранов */
+/* Media query pro velké obrazovky */
 @media (min-width: 1200px) {
     .banner h1 {
         font-size: 4em;
@@ -247,7 +254,7 @@ footer {
     }
 }
 
-/* Адаптивный стиль для планшетов */
+/* Media query pro střední obrazovky */
 @media (max-width: 1024px) {
     .banner h1 {
         font-size: 2em;
@@ -258,7 +265,7 @@ footer {
     }
 }
 
-/* Адаптивный стиль для мобильных устройств */
+/* Media query pro malé obrazovky */
 @media (max-width: 768px) {
     .banner {
         background-position: center;

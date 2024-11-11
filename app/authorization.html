@@ -3,48 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <title>Autorizace uživatele</title>
-  <link rel="stylesheet" href="authorization.css">
+  <link rel="stylesheet" href="../css/authorization.css">
 </head>
 <body>
   <div class="container">
     <h1>Autorizace uživatele</h1>
     <p class="subtitle">Přihlaste se nebo zaregistrujte pomocí sociálních sítí</p>
 
-    <!-- Блок с иконками соцсетей -->
+    <!-- Blok s ikonami sociálních sítí -->
     <div class="social-login">
-      <div><img src="images/google.png" alt="Google"></div>
-      <div><img src="images/telegram.png" alt="Telegram"></div>
-      <div><img src="images/facebook.png" alt="Facebook"></div>
+      <div><img src="../images/google.png" alt="Google"></div>
+      <div><img src="../images/telegram.png" alt="Telegram"></div>
+      <div><img src="../images/facebook.png" alt="Facebook"></div>
     </div>
 
-    <!-- Форма авторизации -->
-    <form id="loginForm">
+    <!-- Formulář pro autorizaci -->
+    <form id="loginForm" action="../php/authorization.php" method="post">
       <label for="identifier">Email nebo telefon:</label>
       <input type="text" id="identifier" name="identifier" required>
-      <span class="error-message" id="identifierError"></span> <!-- Место для ошибки -->
+      <span class="error-message" id="identifierError"></span> <!-- Místo pro chybu -->
 
       <label for="password">Heslo:</label>
       <input type="password" id="password" name="password" required>
-      <span class="error-message" id="passwordError"></span> <!-- Место для ошибки -->
+      <span class="error-message" id="passwordError"></span> <!-- Místo pro chybu -->
 
       <button type="submit">Dále</button>
     </form>
 
-    <!-- Форма для восстановления пароля (по умолчанию скрыта) -->
+    <!-- Formulář pro obnovení hesla (výchozí skrytý) -->
     <form id="forgotPasswordForm" style="display: none;">
       <label for="recoveryIdentifier">Zadejte svůj email nebo telefon:</label>
       <input type="text" id="recoveryIdentifier" name="recoveryIdentifier" required>
       <button type="submit">Obnovit heslo</button>
+      <span class="error-message" id="recoveryError"></span> <!-- Místo pro chybu -->
     </form>
 
-    <!-- Ссылки под формой -->
+    <!-- Odkazy pod formulářem -->
     <div class="full-width">
       <p><a href="#" id="forgotPasswordLink">Zapomněli jste heslo?</a></p>
-      <p>Nemáte účet? <a href="registration.html" class="register-link">Zaregistrujte se</a></p>
+      <p>Nemáte účet? <a href="register.html" class="register-link">Zaregistrujte se</a></p>
     </div>
   </div>
 
-  <script src="js/authorization.js"></script>
-  <script src="js/validation.js"></script>
+  <script src="../js/authorization.js"></script>
+  <script src="../js/validation.js"></script>
 </body>
 </html>

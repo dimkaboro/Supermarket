@@ -1,37 +1,36 @@
 version: '3.8'
 
 services:
-  web:
-    image: php:8.1-apache
-    container_name: php-web
+  php:
+    image: php:8.0-apache
     volumes:
-      - ./src:/var/www/html
+      - ./app:/var/www/html # Připojení lokální složky app do kontejneru
     ports:
-      - "8080:80"
+      - "8080:80" # Přesměrování portu 80 v kontejneru na port 8080 na hostiteli
+    environment:
+      - ACCEPT_EULA=Y
+    command: bash -c "docker-php-ext-install pdo pdo_mysql && apache2-foreground" # Instalace rozšíření PDO a spuštění Apache
 
   db:
     image: mysql:5.7
-    container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: supermarket
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user_password
+      MYSQL_ROOT_PASSWORD: root_password # Nastavení hesla pro uživatele root
+      MYSQL_DATABASE: supermarket # Vytvoření databáze supermarket
+      MYSQL_USER: user # Vytvoření uživatele user
+      MYSQL_PASSWORD: user_password # Nastavení hesla pro uživatele user
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql # Volume pro ukládání dat MySQL
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql # Inicializační SQL soubor
     ports:
-      - "3306:3306"
+      - "3306:3306" # Přesměrování portu 3306 v kontejneru na port 3306 na hostiteli
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
     environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: root_password
+      PMA_HOST: db # Název služby MySQL (db)
+      MYSQL_ROOT_PASSWORD: root_password
     ports:
-      - "8081:80"
+      - "8081:80" # Přesměrování portu 80 v kontejneru na port 8081 na hostiteli
 
 volumes:
-  db_data:
+  db_data: # Definice volume pro ukládání dat MySQL

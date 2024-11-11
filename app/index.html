@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informační systém</title>
-    <!-- Подключение Google Fonts и Font Awesome для иконок -->
+    <!-- Připojení Google Fonts a Font Awesome pro ikony -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
                 <li><a href="#"><i class="fas fa-tags"></i> Akce</a></li>
                 <li><a href="#"><i class="fas fa-briefcase"></i> Kariéra</a></li>
                 <li><a href="#"><i class="fas fa-store"></i> Obchody</a></li>
-                <li><a id="osobniUcetBtn" href="javascript:void(0)"><i class="fas fa-user"></i> Osobní účet</a></li> <!-- Добавили id -->
+                <li><a id="osobniUcetBtn" href="javascript:void(0)"><i class="fas fa-user"></i> Osobní účet</a></li> <!-- Přidáno id -->
             </ul>
         </nav>
     </header>
@@ -42,34 +42,34 @@
         <h2>Populární produkty</h2>
         <div class="product-grid">
             <div class="product">
-                <img src="images/kure.jpg" alt="Produkt 1">
+                <img src="../images/kure.jpg" alt="Produkt 1">
                 <p>Název produktu 1</p>
                 <p>Cena: 250 Kč</p>
             </div>
             <div class="product">
-                <img src="images/mandarinky.jpg" alt="Produkt 2">
+                <img src="../images/mandarinky.jpg" alt="Produkt 2">
                 <p>Název produktu 2</p>
                 <p>Cena: 450 Kč</p>
             </div>
             <div class="product">
-                <img src="images/vejce.jpg" alt="Produkt 3">
+                <img src="../images/vejce.jpg" alt="Produkt 3">
                 <p>Název produktu 3</p>
                 <p>Cena: 600 Kč</p>
             </div>
         </div>
     </section>
-
+    
     <!-- Zápatí -->
     <footer>
         <p>© 2024 Společnost "MALOOBCHOD" síť potravinářských obchodů</p>
         <div class="social-icons">
-            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
-            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="../images/facebook.png" alt="Facebook"></a>
+            <a href="#"><img src="../images/telegram.png" alt="Instagram"></a> <!-- Změněno na Instagram -->
+            <a href="#"><img src="../images/google.png" alt="Twitter"></a> <!-- Změněno na Twitter -->
         </div>
     </footer>
-
-    <!-- Скрипт для отображения бургер-меню -->
+   
+    <!-- Skript pro zobrazení burger menu -->
     <script>
         function toggleMenu() {
             var menu = document.querySelector('nav ul');
@@ -77,14 +77,14 @@
         }
     </script>
 
-    <!-- Скрипт для перенаправления -->
+    <!-- Skript pro přesměrování -->
     <script>
       document.getElementById("osobniUcetBtn").addEventListener("click", function() {
-        window.location.href = "authorization.html"; // Перенаправление на страницу авторизации
+        window.location.href = "authorization.html"; // Přesměrování na stránku autorizace
       });
     </script>
 
-    <!-- Скрипт для анимации появления элементов при прокрутке -->
+    <!-- Skript pro animaci zobrazení prvků při scrollování -->
     <script>
         const products = document.querySelectorAll('.product');
 
