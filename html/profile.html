@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil uživatele</title>
+  <link rel="stylesheet" href="../app/css/profile.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Profil uživatele</h1>
+    <div class="profile-box">
+      <div class="profile-picture">
+        <img id="profileImage" src="../app/images/defaultpicture.png" alt="Profilová fotografie">
+      </div>
+      <div class="profile-details">
+        <p><strong>Jméno:</strong> <span id="profileFirstName"></span></p>
+        <p><strong>Příjmení:</strong> <span id="profileLastName"></span></p>
+        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+        <p><strong>Telefon:</strong> <span id="profilePhone"></span></p>
+        <p><strong>Pohlaví:</strong> <span id="profileGender"></span></p>
+      </div>
+    </div>
+    <h2>Upravit osobní údaje</h2>
+    <form id="editProfileForm" action="../php/updateProfile.php" method="POST" enctype="multipart/form-data">
+      <label for="firstName">Jméno:</label>
+      <input type="text" id="firstName" name="first_name" required>
+      <span id="nameError" class="error-message"></span>
+
+      <label for="lastName">Příjmení:</label>
+      <input type="text" id="lastName" name="last_name" required>
+      <span id="lastNameError" class="error-message"></span>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <span id="emailError" class="error-message"></span>
+
+      <label for="phone">Telefon:</label>
+      <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,13}$" placeholder="+420123456789">
+      <span id="phoneError" class="error-message"></span>
+
+      <label for="gender">Pohlaví:</label>
+      <select id="gender" name="gender" required>
+        <option value="">--Vyberte pohlaví--</option>
+        <option value="male">Mužské</option>
+        <option value="female">Ženské</option>
+        <option value="other">Jiné</option>
+      </select>
+      <span id="genderError" class="error-message"></span>
+
+      <label for="profilePicture">Profilová fotografie:</label>
+      <input type="file" id="profilePicture" name="profile_picture" accept="image/jpeg, image/png">
+      <span id="profilePictureError" class="error-message"></span>
+
+      <button type="submit">Uložit změny</button>
+    </form>
+  </div>
+
+  <script src="../js/validation.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>

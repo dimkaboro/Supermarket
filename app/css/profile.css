@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+/* Základní styly pro tělo stránky */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f2ddc6;
+}
+
+/* Kontejner pro profil */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efekt při najetí myší na kontejner */
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Styl pro hlavní nadpis */
+h1 {
+    text-align: center;
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+
+/* Styl pro podnadpis */
+h2 {
+    text-align: center;
+    color: #888888;
+    margin-bottom: 20px;
+}
+
+/* Styl pro profilový box */
+.profile-box {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Styl pro profilovou fotografii */
+.profile-picture {
+    margin-right: 20px;
+}
+
+.profile-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #4CAF50;
+}
+
+/* Styl pro detaily profilu */
+.profile-details p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #333;
+}
+
+/* Styl pro formulář */
+form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Styl pro štítky */
+label {
+    font-weight: 500;
+    color: #4caf50;
+}
+
+/* Styl pro vstupní pole */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 24px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f9f9f9;
+}
+
+/* Styl pro vstupní pole při zaostření */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+input[type="file"]:focus {
+    border-color: #4caf50;
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+/* Styl pro tlačítko odeslání */
+button[type="submit"] {
+    padding: 15px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Efekt při najetí myší na tlačítko odeslání */
+button[type="submit"]:hover {
+    background-color: #45a049;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+/* Styl pro chybové zprávy */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+}
