@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Market - Your Daily Grocery Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9" alt="Fresh Market Logo" class="h-12 w-auto">
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-600 hover:text-green-500">About Us</a>
+                    <a href="catalog.html" class="text-gray-600 hover:text-green-500">Product Catalog</a>
+                    <a href="checkout.html" class="text-gray-600 hover:text-green-500">Order Page</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Filters Sidebar -->
+            <div class="w-full md:w-64 bg-white p-4 rounded-lg shadow">
+                <h2 class="text-lg font-semibold mb-4">Filters</h2>
+                
+                <div class="mb-6">
+                    <h3 class="font-medium mb-2">Category</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox text-green-500">
+                            <span class="ml-2">Fruits</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox text-green-500">
+                            <span class="ml-2">Vegetables</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox text-green-500">
+                            <span class="ml-2">Bakery</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox text-green-500">
+                            <span class="ml-2">Dairy</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-medium mb-2">Price Range</h3>
+                    <input type="range" min="0" max="100" class="w-full">
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>$0</span>
+                        <span>$100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold">Products</h1>
+                    <select class="border rounded-lg px-4 py-2">
+                        <option>Sort by: Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Name: A to Z</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Product Card 1 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e" alt="Organic Apples" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <a href="product.html" class="block">
+                                <h3 class="font-semibold text-lg mb-2 hover:text-green-500 transition duration-300">Organic Apples</h3>
+                            </a>
+                            <p class="text-gray-600 mb-2">Fresh and juicy organic apples</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-green-600">$4.99</span>
+                                <button class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1598965675045-45c5e72c7d05" alt="Fresh Bread" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <a href="product.html" class="block">
+                                <h3 class="font-semibold text-lg mb-2 hover:text-green-500 transition duration-300">Fresh Bread</h3>
+                            </a>
+                            <p class="text-gray-600 mb-2">Freshly baked artisan bread</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-green-600">$3.99</span>
+                                <button class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1573246123716-6b1782bfc499" alt="Fresh Milk" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <a href="product.html" class="block">
+                                <h3 class="font-semibold text-lg mb-2 hover:text-green-500 transition duration-300">Fresh Milk</h3>
+                            </a>
+                            <p class="text-gray-600 mb-2">Organic whole milk</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-green-600">$2.99</span>
+                                <button class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c" alt="Fresh Vegetables" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <a href="product.html" class="block">
+                                <h3 class="font-semibold text-lg mb-2 hover:text-green-500 transition duration-300">Fresh Vegetables</h3>
+                            </a>
+                            <p class="text-gray-600 mb-2">Mixed organic vegetables</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-green-600">$6.99</span>
+                                <button class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function loadProductDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get("id");
+
+            // Simulated product data
+            const products = {
+                "1": {
+                    title: "Organic Apples",
+                    price: "$4.99",
+                    unit: "per pound",
+                    description: "Our organic apples are hand-picked from local orchards at peak ripeness. These crisp, juicy apples are perfect for snacking, baking, or adding to your favorite recipes.",
+                    rating: 5,
+                    reviews: 128,
+                    mainImage: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e",
+                    thumbnails: [
+                        "https://images.unsplash.com/photo-1590005354167-6da97870c757",
+                        "https://images.unsplash.com/photo-1567306295427-94503f8300d5",
+                        "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a"
+                    ],
+                    features: ["100% Organic", "Locally sourced", "Rich in fiber and vitamins", "No artificial preservatives"]
+                }
+            };
+
+            const product = products[productId] || products["1"];
+
+            document.getElementById("mainProductImage").src = product.mainImage;
+            document.getElementById("productTitle").textContent = product.title;
+            document.getElementById("productPrice").textContent = product.price;
+            document.getElementById("priceUnit").textContent = product.unit;
+            document.getElementById("productDescription").textContent = product.description;
+            document.getElementById("reviewCount").textContent = `(${product.reviews} reviews)`;
+
+            const thumbnailsContainer = document.getElementById("productThumbnails");
+            thumbnailsContainer.innerHTML = product.thumbnails.map(thumb => 
+                `<img src="${thumb}" alt="Product thumbnail" class="w-20 h-20 object-cover rounded cursor-pointer" onclick="updateMainImage('${thumb}')">`
+            ).join("");
+
+            const featuresContainer = document.getElementById("productFeatures");
+            featuresContainer.innerHTML = product.features.map(feature =>
+                `<li>${feature}</li>`
+            ).join("");
+        }
+
+        function updateMainImage(imageUrl) {
+            document.getElementById("mainProductImage").src = imageUrl;
+        }
+
+        function incrementQuantity() {
+            const input = document.getElementById("quantity");
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decrementQuantity() {
+            const input = document.getElementById("quantity");
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        function addToCart() {
+            const quantity = document.getElementById("quantity").value;
+            alert(`Added ${quantity} item(s) to cart!`);
+        }
+    </script>
+</body>
+</html>
