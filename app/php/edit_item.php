@@ -78,31 +78,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редагування товару</title>
-    <link rel="stylesheet" href="../css/admin_panel.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Редагування товару</h1>
-    <a href="admin_panel.php">Повернутися до адмінпанелі</a>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
 
-    <?php if (isset($errorMessage)): ?>
-        <p style="color: red;"><?php echo $errorMessage; ?></p>
-    <?php endif; ?>
+    <!-- Основной контейнер -->
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Редагування товару</h1>
 
-    <?php if (isset($successMessage)): ?>
-        <p style="color: green;"><?php echo $successMessage; ?></p>
-    <?php endif; ?>
+        <!-- Ссылки -->
+        <a href="admin_panel.php" class="text-green-500 hover:text-green-600 mb-4 block text-center">Повернутися до адмінпанелі</a>
 
-    <form method="POST">
-        <label for="nazev">Назва товару:</label>
-        <input type="text" id="nazev" name="nazev" value="<?php echo htmlspecialchars($item['Nazev']); ?>" required><br>
+        <!-- Сообщения об ошибке/успехе -->
+        <?php if (isset($errorMessage)): ?>
+            <p class="text-red-500 mb-4"><?php echo $errorMessage; ?></p>
+        <?php endif; ?>
 
-        <label for="cena">Ціна:</label>
-        <input type="number" step="0.01" id="cena" name="cena" value="<?php echo htmlspecialchars($item['Cena']); ?>" required><br>
+        <?php if (isset($successMessage)): ?>
+            <p class="text-green-500 mb-4"><?php echo $successMessage; ?></p>
+        <?php endif; ?>
 
-        <label for="hmotnost">Вага (кг):</label>
-        <input type="number" step="0.001" id="hmotnost" name="hmotnost" value="<?php echo htmlspecialchars($item['Hmotnost']); ?>" required><br>
+        <!-- Форма редактирования -->
+        <form method="POST" class="space-y-4">
+            <!-- Назва товару -->
+            <div>
+                <label for="nazev" class="block text-gray-700 font-medium">Назва товару:</label>
+                <input type="text" id="nazev" name="nazev" 
+                       value="<?php echo htmlspecialchars($item['Nazev']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
 
-        <button type="submit">Зберегти зміни</button>
-    </form>
+            <!-- Ціна -->
+            <div>
+                <label for="cena" class="block text-gray-700 font-medium">Ціна:</label>
+                <input type="number" step="0.01" id="cena" name="cena" 
+                       value="<?php echo htmlspecialchars($item['Cena']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
+
+            <!-- Вага -->
+            <div>
+                <label for="hmotnost" class="block text-gray-700 font-medium">Вага (кг):</label>
+                <input type="number" step="0.001" id="hmotnost" name="hmotnost" 
+                       value="<?php echo htmlspecialchars($item['Hmotnost']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
+
+            <!-- Кнопки -->
+            <div class="flex justify-between items-center mt-6">
+                <a href="admin_panel.php" 
+                   class="text-gray-600 hover:text-gray-900">Повернутися до адмінпанелі</a>
+                <button type="submit" 
+                        class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">
+                    Зберегти зміни
+                </button>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>

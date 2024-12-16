@@ -87,44 +87,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редагування користувача</title>
-    <link rel="stylesheet" href="../css/admin_panel.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Редагування користувача</h1>
-    <a href="admin_panel.php">Повернутися до адмінпанелі</a>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
 
-    <?php if (isset($errorMessage)): ?>
-        <p style="color: red;"><?php echo $errorMessage; ?></p>
-    <?php endif; ?>
+    <!-- Основной контейнер -->
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Редагування користувача</h1>
+        
+        <!-- Сообщения об ошибке/успехе -->
+        <?php if (isset($errorMessage)): ?>
+            <p class="text-red-500 mb-4"><?php echo $errorMessage; ?></p>
+        <?php endif; ?>
 
-    <?php if (isset($successMessage)): ?>
-        <p style="color: green;"><?php echo $successMessage; ?></p>
-    <?php endif; ?>
+        <?php if (isset($successMessage)): ?>
+            <p class="text-green-500 mb-4"><?php echo $successMessage; ?></p>
+        <?php endif; ?>
 
-    <form method="POST">
-        <label for="first_name">Ім'я:</label>
-        <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user['first_name']); ?>" required><br>
+        <!-- Форма редактирования -->
+        <form method="POST" class="space-y-4">
+            <!-- Поле Ім'я -->
+            <div>
+                <label for="first_name" class="block text-gray-700 font-medium">Ім'я:</label>
+                <input type="text" id="first_name" name="first_name" 
+                       value="<?php echo htmlspecialchars($user['first_name']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
 
-        <label for="last_name">Прізвище:</label>
-        <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user['last_name']); ?>" required><br>
+            <!-- Поле Прізвище -->
+            <div>
+                <label for="last_name" class="block text-gray-700 font-medium">Прізвище:</label>
+                <input type="text" id="last_name" name="last_name" 
+                       value="<?php echo htmlspecialchars($user['last_name']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
+            <!-- Поле Email -->
+            <div>
+                <label for="email" class="block text-gray-700 font-medium">Email:</label>
+                <input type="email" id="email" name="email" 
+                       value="<?php echo htmlspecialchars($user['email']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
 
-        <label for="phone">Телефон:</label>
-        <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>" required><br>
+            <!-- Поле Телефон -->
+            <div>
+                <label for="phone" class="block text-gray-700 font-medium">Телефон:</label>
+                <input type="tel" id="phone" name="phone" 
+                       value="<?php echo htmlspecialchars($user['phone']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
 
-        <label for="gender">Пohlaví:</label>
-        <select id="gender" name="gender" required>
-            <option value="male" <?php echo $user['gender'] === 'male' ? 'selected' : ''; ?>>Мужской</option>
-            <option value="female" <?php echo $user['gender'] === 'female' ? 'selected' : ''; ?>>Женский</option>
-            <option value="other" <?php echo $user['gender'] === 'other' ? 'selected' : ''; ?>>Другое</option>
-        </select><br>
+            <!-- Поле Пohlaví -->
+            <div>
+                <label for="gender" class="block text-gray-700 font-medium">Пohlaví:</label>
+                <select id="gender" name="gender" 
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                        required>
+                    <option value="male" <?php echo $user['gender'] === 'male' ? 'selected' : ''; ?>>Мужской</option>
+                    <option value="female" <?php echo $user['gender'] === 'female' ? 'selected' : ''; ?>>Женский</option>
+                    <option value="other" <?php echo $user['gender'] === 'other' ? 'selected' : ''; ?>>Другое</option>
+                </select>
+            </div>
 
-        <label for="username">Ім'я користувача:</label>
-        <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required><br>
+            <!-- Поле Ім'я користувача -->
+            <div>
+                <label for="username" class="block text-gray-700 font-medium">Ім'я користувача:</label>
+                <input type="text" id="username" name="username" 
+                       value="<?php echo htmlspecialchars($user['username']); ?>" 
+                       class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                       required>
+            </div>
 
-        <button type="submit">Зберегти зміни</button>
-    </form>
+            <!-- Кнопки -->
+            <div class="flex justify-between items-center mt-6">
+                <a href="admin_panel.php" 
+                   class="text-gray-600 hover:text-gray-900">Повернутися до адмінпанелі</a>
+                <button type="submit" 
+                        class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">
+                    Зберегти зміни
+                </button>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>

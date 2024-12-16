@@ -34,61 +34,102 @@ $zbozi = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Адмінпанель</title>
-    <link rel="stylesheet" href="../css/admin_panel.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Адмінпанель</h1>
-    <h2>Користувачі</h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Ім'я</th>
-            <th>Прізвище</th>
-            <th>Email</th>
-            <th>Телефон</th>
-            <th>Роль</th>
-            <th>Дії</th>
-        </tr>
-        <?php foreach ($users as $user): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($user['id']); ?></td>
-            <td><?php echo htmlspecialchars($user['first_name']); ?></td>
-            <td><?php echo htmlspecialchars($user['last_name']); ?></td>
-            <td><?php echo htmlspecialchars($user['email']); ?></td>
-            <td><?php echo htmlspecialchars($user['phone']); ?></td>
-            <td><?php echo htmlspecialchars($user['role']); ?></td>
-            <td>
-                <a href="edit_user.php?id=<?php echo $user['id']; ?>">Редагувати</a> |
-                <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Ви впевнені?')">Видалити</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
+<body class="bg-gray-50">
 
-    <h2>Товари</h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Назва</th>
-            <th>Ціна</th>
-            <th>Вага</th>
-            <th>Дії</th>
-        </tr>
-        <?php foreach ($zbozi as $item): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($item['ID']); ?></td>
-            <td><?php echo htmlspecialchars($item['Nazev']); ?></td>
-            <td><?php echo htmlspecialchars($item['Cena']); ?></td>
-            <td><?php echo htmlspecialchars($item['Hmotnost']); ?></td>
-            <td>
-                <a href="edit_item.php?id=<?php echo $item['ID']; ?>">Редагувати</a> |
-                <a href="delete_item.php?id=<?php echo $item['ID']; ?>" onclick="return confirm('Ви впевнені?')">Видалити</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
+    <!-- Заголовок -->
+    <header class="bg-white shadow-md relative z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html">
+                <img src="../images/logoo.png" alt="MixMart Logo" class="h-12 w-auto">
+            </a>
+            <h1 class="text-2xl font-bold text-green-600">Адмінпанель</h1>
+        </div>
+    </header>
 
-    <a href="add_user.php">Додати користувача</a> |
-    <a href="add_item.php">Додати товар</a>
+    <!-- Основное содержимое -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Таблица пользователей -->
+        <section class="mb-12 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4 text-gray-700">Користувачі</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead class="bg-green-500 text-white">
+                        <tr>
+                            <th class="p-2">ID</th>
+                            <th class="p-2">Ім'я</th>
+                            <th class="p-2">Прізвище</th>
+                            <th class="p-2">Email</th>
+                            <th class="p-2">Телефон</th>
+                            <th class="p-2">Роль</th>
+                            <th class="p-2">Дії</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users as $user): ?>
+                        <tr class="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition">
+                            <td class="p-2 text-center"><?php echo htmlspecialchars($user['id']); ?></td>
+                            <td class="p-2"><?php echo htmlspecialchars($user['first_name']); ?></td>
+                            <td class="p-2"><?php echo htmlspecialchars($user['last_name']); ?></td>
+                            <td class="p-2"><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td class="p-2"><?php echo htmlspecialchars($user['phone']); ?></td>
+                            <td class="p-2 text-center"><?php echo htmlspecialchars($user['role']); ?></td>
+                            <td class="p-2 text-center">
+                                <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="text-blue-500 hover:text-blue-700">Редагувати</a> |
+                                <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="text-red-500 hover:text-red-700" onclick="return confirm('Ви впевнені?')">Видалити</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Таблица товаров -->
+        <section class="mb-12 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4 text-gray-700">Товари</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-gray-300 text-sm">
+                    <thead class="bg-green-500 text-white">
+                        <tr>
+                            <th class="p-2">ID</th>
+                            <th class="p-2">Назва</th>
+                            <th class="p-2">Ціна</th>
+                            <th class="p-2">Вага</th>
+                            <th class="p-2">Дії</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($zbozi as $item): ?>
+                        <tr class="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition">
+                            <td class="p-2 text-center"><?php echo htmlspecialchars($item['ID']); ?></td>
+                            <td class="p-2"><?php echo htmlspecialchars($item['Nazev']); ?></td>
+                            <td class="p-2 text-center"><?php echo htmlspecialchars($item['Cena']); ?></td>
+                            <td class="p-2 text-center"><?php echo htmlspecialchars($item['Hmotnost']); ?></td>
+                            <td class="p-2 text-center">
+                                <a href="edit_item.php?id=<?php echo $item['ID']; ?>" class="text-blue-500 hover:text-blue-700">Редагувати</a> |
+                                <a href="delete_item.php?id=<?php echo $item['ID']; ?>" class="text-red-500 hover:text-red-700" onclick="return confirm('Ви впевнені?')">Видалити</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Ссылки на добавление -->
+        <div class="flex justify-center gap-6 mt-6">
+            <a href="add_user.php" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition">Додати користувача</a>
+            <a href="add_item.php" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition">Додати товар</a>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="bg-white border-t mt-8">
+        <div class="container mx-auto px-4 py-6 text-center text-gray-600">
+            <p>© 2024 MixMart. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
