@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Отримання даних з форми
     $usernameOrEmail = isset($_POST['identifier']) ? htmlspecialchars(trim($_POST['identifier'])) : '';
-    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $pass = isset($_POST['password']) ? trim($_POST['password']) : '';
 
     // Перевірка, чи всі поля заповнені
     if (empty($usernameOrEmail) || empty($password)) {
@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Помилка авторизації
             die("Помилка: Неправильний логін або пароль.");
         }
+
     } catch (PDOException $e) {
         // Помилка під час виконання запиту до бази даних
         die("Помилка під час авторизації: " . $e->getMessage());
@@ -59,4 +60,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: authorization.html");
     exit();
 }
-?>
