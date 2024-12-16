@@ -1,0 +1,145 @@
+/* Общие стили для тела страницы */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8f5; /* Светло-зелёный фон */
+    color: #333; /* Тёмно-серый текст */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Контейнер для центрирования контента */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Стили заголовков */
+h1, h2 {
+    color: #2e8b57; /* Зелёный цвет */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* Стили таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    border: 1px solid #2e8b57; /* Зелёные границы */
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table th {
+    background-color: #2e8b57; /* Зелёный фон для заголовков */
+    color: white; /* Белый текст */
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+table tr:nth-child(even) {
+    background-color: #e6f2e6; /* Чередующиеся строки светло-зелёного цвета */
+}
+
+table tr:hover {
+    background-color: #d0e8d0; /* Слегка затемнённый фон при наведении */
+}
+
+/* Стили ссылок */
+a {
+    color: #2e8b57; /* Зелёный цвет */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Стили кнопок */
+button, a.button {
+    background-color: #2e8b57; /* Зелёный фон */
+    color: white; /* Белый текст */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, a.button:hover {
+    background-color: #276749; /* Тёмнее зелёный при наведении */
+}
+
+/* Стили для сообщений об ошибках */
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+/* Дополнительные стили для ссылок "Додати" */
+.add-links {
+    margin-top: 20px;
+}
+
+.add-links a {
+    margin-right: 15px;
+    display: inline-block;
+}
+
+/* Стили для заголовков таблиц */
+table th {
+    text-align: center;
+}
+
+/* Центрирование содержимого ячеек, если необходимо */
+table td {
+    vertical-align: middle;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+
+    table tr {
+        margin-bottom: 15px;
+    }
+
+    table th {
+        background-color: transparent;
+        color: #2e8b57;
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    table td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+        color: #2e8b57;
+    }
+}
