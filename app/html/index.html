@@ -31,7 +31,6 @@
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
                     <a href="index.html#about-us" class="text-gray-600 hover:text-green-500">About Us</a>
                     <a href="catalog.html" class="text-gray-600 hover:text-green-500">Product Catalog</a>
                     <a href="checkout.html" class="text-gray-600 hover:text-green-500">Order Page</a>
@@ -53,64 +52,10 @@
                         Login
                     </a>
                     
-                    <div class="relative cart-dropdown flex items-center" id="cart-container">
-                        <button class="text-gray-600 hover:text-green-500 relative flex items-center" id="cart-button">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                            <!-- Счётчик товаров -->
-                            <span class="absolute -top-2 -right-2 bg-green-500 text-white rounded-full w-5 h-5 
-                                         flex items-center justify-center text-xs">2</span>
-                        </button>
-                        <!-- Выпадающее меню -->
-                        <div class="cart-content absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-4 z-50">
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <span class="font-medium">Shopping Cart (2)</span>
-                                    <button class="text-sm text-green-500 hover:text-green-600">View All</button>
-                                </div>
-                                <div class="divide-y divide-gray-100">
-                                    <div class="flex items-center py-2">
-                                        <img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e" 
-                                             alt="Organic Apples" class="w-12 h-12 rounded object-cover">
-                                        <div class="ml-3 flex-1">
-                                            <p class="text-sm font-medium">Organic Apples</p>
-                                            <p class="text-sm text-gray-500">$4.99</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center py-2">
-                                        <img src="https://images.unsplash.com/photo-1598965675045-45c5e72c7d05" 
-                                             alt="Fresh Bread" class="w-12 h-12 rounded object-cover">
-                                        <div class="ml-3 flex-1">
-                                            <p class="text-sm font-medium">Fresh Bread</p>
-                                            <p class="text-sm text-gray-500">$3.99</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="border-t pt-4">
-                                    <div class="flex justify-between mb-2">
-                                        <span class="text-sm font-medium">Total:</span>
-                                        <span class="text-sm font-bold">$8.98</span>
-                                    </div>
-                                    <a href="checkout.html" 
-                                       class="w-full bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 text-center block">
-                                        Checkout
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     
                                       
-                    <!-- Аватар пользователя -->
-                    <a href="profile.html" class="text-gray-600 hover:text-green-500">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                    </a>
+                 
                 </div>
             </div>
         </div>
@@ -124,7 +69,6 @@
                 <div class="text-center text-white">
                     <h1 class="text-5xl font-bold mb-4">Welcome to MixMart</h1>
                     <p class="text-2xl mb-6">Your one-stop shop for fresh groceries</p>
-                    <a href="catalog.html" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600">Shop Now</a>
                 </div>
             </div>
         </section>
@@ -150,80 +94,10 @@
         </section>
         
 
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6">Shop by Category</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl">
-                    <img src="../images/freshfruits.jpg" alt="Fruits" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold mb-2">Fruits</h3>
-                        <a href="catalog.html" class="text-green-500 hover:text-green-600">Shop Now →</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl">
-                    <img src="../images/freshvegetables.jpg" alt="Vegetables" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold mb-2">Vegetables</h3>
-                        <a href="catalog.html" class="text-green-500 hover:text-green-600">Shop Now →</a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl">
-                    <img src="../images/freshbakery.jpg" alt="Bakery" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold mb-2">Bakery</h3>
-                        <a href="catalog.html" class="text-green-500 hover:text-green-600">Shop Now →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         
 
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6">Featured Products</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="bg-white rounded-lg shadow-md p-4 flex flex-col transform transition-transform hover:scale-105 hover:shadow-2xl">
-                    <div>
-                        <img src="../images/bananas.jpg" alt="Banana" class="w-full h-48 object-cover rounded-md mb-4">
-                        <h3 class="font-semibold mb-6">Banana</h3>
-                    </div>
-                    <a href="catalog.html" 
-                       class="mt-auto w-full bg-green-500 text-white px-4 py-2 rounded-full text-center hover:bg-green-600">
-                        Go to Catalog
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-4 flex flex-col transform transition-transform hover:scale-105 hover:shadow-2xl">
-                    <div>
-                        <img src="../images/peppers.jpg" alt="Pepper" class="w-full h-48 object-cover rounded-md mb-4">
-                        <h3 class="font-semibold mb-6">Pepper</h3>
-                    </div>
-                    <a href="catalog.html" 
-                       class="mt-auto w-full bg-green-500 text-white px-4 py-2 rounded-full text-center hover:bg-green-600">
-                        Go to Catalog
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-4 flex flex-col transform transition-transform hover:scale-105 hover:shadow-2xl">
-                    <div>
-                        <img src="../images/croissants.jpg" alt="Croissant" class="w-full h-48 object-cover rounded-md mb-4">
-                        <h3 class="font-semibold mb-6">Croissant</h3>
-                    </div>
-                    <a href="catalog.html" 
-                       class="mt-auto w-full bg-green-500 text-white px-4 py-2 rounded-full text-center hover:bg-green-600">
-                        Go to Catalog
-                    </a>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-4 flex flex-col transform transition-transform hover:scale-105 hover:shadow-2xl">
-                    <div>
-                        <img src="../images/milk.jpg" alt="Milk" class="w-full h-48 object-cover rounded-md mb-4">
-                        <h3 class="font-semibold mb-6">Milk</h3>
-                    </div>
-                    <a href="catalog.html" 
-                       class="mt-auto w-full bg-green-500 text-white px-4 py-2 rounded-full text-center hover:bg-green-600">
-                        Go to Catalog
-                    </a>
-                </div>
-            </div>
-        </section>
-        
+       
         
         
 
