@@ -158,6 +158,7 @@ $profile_picture = $user['profile_picture'] ? $user['profile_picture'] : '../app
       <span id="profilePictureError" class="error-message"></span>
 
       <button type="submit">Uložit změny</button>
+      <a href="indexUser.php">Back</a>
     </form>
   </div>
 

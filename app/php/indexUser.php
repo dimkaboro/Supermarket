@@ -66,7 +66,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="logout.php" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">
+                    <a href="../html/authorization.html" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">
                         Logout
                     </a>
 
