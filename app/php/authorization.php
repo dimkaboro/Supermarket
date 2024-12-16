@@ -1,63 +1,62 @@
 <?php
-// Zahájení relace před jakýmkoli výstupem na obrazovku
+// Початок сесії для зберігання даних користувача
 session_start();
 
-// Kontrola, že skript authorization.php byl spuštěn správně
-echo "Skript authorization.php byl spuštěn!<br>";
-
-// Připojení k databázi
-$dsn = 'mysql:host=db;dbname=supermarket;charset=utf8'; 
-$username = 'user';
-$password = 'user_password';
-
-try {
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Připojení k databázi bylo úspěšné!<br>";
-} catch (PDOException $e) {
-    die("Chyba připojení k databázi: " . $e->getMessage());
-}
-
-// Kontrola dat z formuláře
+// Перевірка, чи був відправлений POST-запит
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "Formulář byl odeslán!<br>";
+    // Підключення до бази даних
+    $dsn = 'mysql:host=db;dbname=supermarket;charset=utf8';
+    $username = 'user';
+    $password = 'user_password';
 
-    // Očištění dat
+    try {
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("Помилка підключення до бази даних: " . $e->getMessage());
+    }
+
+    // Отримання даних з форми
     $usernameOrEmail = isset($_POST['identifier']) ? htmlspecialchars(trim($_POST['identifier'])) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
+    // Перевірка, чи всі поля заповнені
     if (empty($usernameOrEmail) || empty($password)) {
-        die("Chyba: Prosím, vyplňte všechna povinná pole.");
+        die("Помилка: Будь ласка, заповніть всі поля.");
     }
 
-    echo "Data z formuláře byla přijata. Kontrola uživatele v databázi...<br>";
-
-    // Kontrola uživatele v databázi
     try {
+        // Пошук користувача в базі даних за логіном або email
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
         $stmt->execute(['username' => $usernameOrEmail, 'email' => $usernameOrEmail]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            if (password_verify($password, $user['password'])) {
-                // Autorizace úspěšná
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['first_name'] = $user['first_name'];
-                echo "Autorizace úspěšná! Vítejte, " . htmlspecialchars($user['first_name']) . "!";
-                echo "<br>Úspěšně jste se přihlásili do svého účtu.";
+        // Перевірка, чи користувач існує та чи пароль вірний
+        if ($user && password_verify($password, $user['password'])) {
+            // Збереження даних користувача в сесії
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['role'] = $user['role']; // Зберігаємо роль користувача
+
+            // Перенаправлення на відповідну сторінку в залежності від ролі
+            if ($user['role'] === 'admin') {
+                header("Location: admin_panel.php"); // Перенаправляємо на адмінпанель
+                exit();
             } else {
-                // Nesprávné heslo
-                die("Chyba: Nesprávné heslo.");
+                header("Location: index.html"); // Перенаправляємо на головну сторінку для звичайних користувачів
+                exit();
             }
         } else {
-            // Uživatel nenalezen
-            die("Chyba: Uživatel s tímto jménem nebo emailem nebyl nalezen.");
+            // Помилка авторизації
+            die("Помилка: Неправильний логін або пароль.");
         }
     } catch (PDOException $e) {
-        die("Chyba při kontrole dat: " . $e->getMessage());
+        // Помилка під час виконання запиту до бази даних
+        die("Помилка під час авторизації: " . $e->getMessage());
     }
 } else {
-    echo "Data z formuláře nebyla odeslána!";
+    // Якщо запит не є POST, перенаправляємо на сторінку авторизації
+    header("Location: authorization.html");
+    exit();
 }
 ?>
