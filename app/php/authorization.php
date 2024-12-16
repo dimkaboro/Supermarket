@@ -1,62 +1,63 @@
 <?php
-// Початок сесії для зберігання даних користувача
+// Начало сессии для хранения данных пользователя
 session_start();
 
-// Перевірка, чи був відправлений POST-запит
+// Проверка, был ли отправлен POST-запрос
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Підключення до бази даних
+    // Подключение к базе данных
     $dsn = 'mysql:host=db;dbname=supermarket;charset=utf8';
-    $username = 'user';
-    $password = 'user_password';
+    $db_username = 'user';
+    $db_password = 'user_password';
 
     try {
-        $pdo = new PDO($dsn, $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo = new PDO($dsn, $db_username, $db_password, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
     } catch (PDOException $e) {
-        die("Помилка підключення до бази даних: " . $e->getMessage());
+        die("Ошибка подключения к базе данных: " . $e->getMessage());
     }
 
-    // Отримання даних з форми
+    // Получение данных из формы
     $usernameOrEmail = isset($_POST['identifier']) ? htmlspecialchars(trim($_POST['identifier'])) : '';
-    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $pass = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-    // Перевірка, чи всі поля заповнені
-    if (empty($usernameOrEmail) || empty($password)) {
-        die("Помилка: Будь ласка, заповніть всі поля.");
+    // Проверка, заполнены ли все поля
+    if (empty($usernameOrEmail) || empty($pass)) {
+        die("Ошибка: Пожалуйста, заполните все поля.");
     }
 
     try {
-        // Пошук користувача в базі даних за логіном або email
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
+        // Поиск пользователя в базе данных по логину или email
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email LIMIT 1");
         $stmt->execute(['username' => $usernameOrEmail, 'email' => $usernameOrEmail]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Перевірка, чи користувач існує та чи пароль вірний
-        if ($user && password_verify($password, $user['password'])) {
-            // Збереження даних користувача в сесії
+        // Проверка, существует ли пользователь и верен ли пароль
+        if ($user && password_verify($pass, $user['password'])) {
+            // Сохранение данных пользователя в сессии
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role']; // Зберігаємо роль користувача
+            $_SESSION['role'] = $user['role']; // Сохраняем роль пользователя
 
-            // Перенаправлення на відповідну сторінку в залежності від ролі
+            // Перенаправление на соответствующую страницу в зависимости от роли
             if ($user['role'] === 'admin') {
-                header("Location: admin_panel.php"); // Перенаправляємо на адмінпанель
+                header("Location: /php/admin_panel.php"); // Если админ
                 exit();
             } else {
-                header("Location: index.html"); // Перенаправляємо на головну сторінку для звичайних користувачів
+                header("Location: /php/indexUser.php"); // Если обычный пользователь
                 exit();
             }
         } else {
-            // Помилка авторизації
-            die("Помилка: Неправильний логін або пароль.");
+            // Ошибка авторизации
+            die("Ошибка: Неправильный логин или пароль.");
         }
+
     } catch (PDOException $e) {
-        // Помилка під час виконання запиту до бази даних
-        die("Помилка під час авторизації: " . $e->getMessage());
+        // Ошибка при выполнении запроса к базе данных
+        die("Ошибка при авторизации: " . $e->getMessage());
     }
 } else {
-    // Якщо запит не є POST, перенаправляємо на сторінку авторизації
-    header("Location: authorization.html");
+    // Если запрос не является POST, перенаправляем на страницу авторизации
+    header("Location: /html/authorization.html");
     exit();
 }
-?>
