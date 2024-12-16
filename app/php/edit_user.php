@@ -47,9 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = isset($_POST['phone']) ? htmlspecialchars(trim($_POST['phone'])) : '';
     $gender = isset($_POST['gender']) ? htmlspecialchars(trim($_POST['gender'])) : '';
     $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
+    $role = isset($_POST['role']) ? htmlspecialchars(trim($_POST['role'])) : ''; // Додано поле для ролі
 
     // Перевірка, чи всі поля заповнені
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($gender) || empty($username)) {
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($gender) || empty($username) || empty($role)) {
         $errorMessage = "Помилка: Будь ласка, заповніть всі поля.";
     } else {
         // Оновлення даних користувача в базі даних
@@ -60,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 email = :email, 
                 phone = :phone, 
                 gender = :gender, 
-                username = :username 
+                username = :username,
+                role = :role 
                 WHERE id = :id");
 
             $stmt->execute([
@@ -70,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'phone' => $phone,
                 'gender' => $gender,
                 'username' => $username,
+                'role' => $role, // Додано роль
                 'id' => $userId
             ]);
 
@@ -94,7 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Основной контейнер -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Редагування користувача</h1>
-        
+
+        <!-- Ссылка на админпанель -->
+        <a href="admin_panel.php" class="text-green-500 hover:text-green-600 mb-4 block text-center">Повернутися до адмінпанелі</a>
+
         <!-- Сообщения об ошибке/успехе -->
         <?php if (isset($errorMessage)): ?>
             <p class="text-red-500 mb-4"><?php echo $errorMessage; ?></p>
@@ -106,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <!-- Форма редактирования -->
         <form method="POST" class="space-y-4">
-            <!-- Поле Ім'я -->
+            <!-- Имя -->
             <div>
                 <label for="first_name" class="block text-gray-700 font-medium">Ім'я:</label>
                 <input type="text" id="first_name" name="first_name" 
@@ -115,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        required>
             </div>
 
-            <!-- Поле Прізвище -->
+            <!-- Фамилия -->
             <div>
                 <label for="last_name" class="block text-gray-700 font-medium">Прізвище:</label>
                 <input type="text" id="last_name" name="last_name" 
@@ -124,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        required>
             </div>
 
-            <!-- Поле Email -->
+            <!-- Email -->
             <div>
                 <label for="email" class="block text-gray-700 font-medium">Email:</label>
                 <input type="email" id="email" name="email" 
@@ -133,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        required>
             </div>
 
-            <!-- Поле Телефон -->
+            <!-- Телефон -->
             <div>
                 <label for="phone" class="block text-gray-700 font-medium">Телефон:</label>
                 <input type="tel" id="phone" name="phone" 
@@ -142,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        required>
             </div>
 
-            <!-- Поле Пohlaví -->
+            <!-- Пол -->
             <div>
                 <label for="gender" class="block text-gray-700 font-medium">Пohlaví:</label>
                 <select id="gender" name="gender" 
@@ -154,13 +160,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
             </div>
 
-            <!-- Поле Ім'я користувача -->
+            <!-- Имя пользователя -->
             <div>
                 <label for="username" class="block text-gray-700 font-medium">Ім'я користувача:</label>
                 <input type="text" id="username" name="username" 
                        value="<?php echo htmlspecialchars($user['username']); ?>" 
                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
                        required>
+            </div>
+
+            <!-- Роль -->
+            <div>
+                <label for="role" class="block text-gray-700 font-medium">Роль:</label>
+                <select id="role" name="role" 
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
+                        required>
+                    <option value="user" <?php echo $user['role'] === 'user' ? 'selected' : ''; ?>>Користувач</option>
+                    <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Адміністратор</option>
+                </select>
             </div>
 
             <!-- Кнопки -->
