@@ -1,34 +1,42 @@
 <?php
 session_start();
 
+// Включение отображения ошибок для отладки (временно)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Проверяем авторизацию
 if (!isset($_SESSION['user_id'])) {
-    header("Location: authorization.html");
+    header("Location: ../html/authorization.html");
     exit();
 }
 
 // Подключение к базе данных (настройте свои данные)
-$dsn = 'mysql:host=db;dbname=supermarket;charset=utf8';
-$db_username = 'user';
-$db_password = 'user_password';
+$dsn = 'mysql:host=sql310.infinityfree.com;dbname=if0_37950136_supermarket;charset=utf8'; // Укажите хост и имя базы данных
+$username = 'if0_37950136'; // Ваш MySQL Username
+$db_password = 'tGgX9jy15tX1VF'; // Ваш MySQL Password
 
 try {
-    $pdo = new PDO($dsn, $db_username, $db_password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
+    // Используем правильную переменную для пароля
+    $pdo = new PDO($dsn, $username, $db_password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // echo "Connected successfully"; // Удалено или закомментировано для безопасности
 } catch (PDOException $e) {
-    die("Ошибка подключения к базе данных: " . $e->getMessage());
+    die("Database connection error: " . $e->getMessage()); // Ошибка при подключении
 }
 
 $user_id = $_SESSION['user_id'];
 
 // Если форма отправлена, обрабатываем обновление данных
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $first_name = isset($_POST['first_name']) ? trim($_POST['first_name']) : '';
-    $last_name = isset($_POST['last_name']) ? trim($_POST['last_name']) : '';
-    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-    $gender = isset($_POST['gender']) ? trim($_POST['gender']) : '';
+    echo "Форма отправлена через POST.<br>";
+
+    $first_name = isset($_POST['first_name']) ? htmlspecialchars(trim($_POST['first_name'])) : '';
+    $last_name = isset($_POST['last_name']) ? htmlspecialchars(trim($_POST['last_name'])) : '';
+    $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+    $phone = isset($_POST['phone']) ? htmlspecialchars(trim($_POST['phone'])) : '';
+    $gender = isset($_POST['gender']) ? htmlspecialchars(trim($_POST['gender'])) : '';
 
     // Проверка и загрузка файла (если был загружен)
     $profile_picture_path = null;
@@ -42,12 +50,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $new_filename = uniqid('profile_', true) . '.' . $extension;
             $upload_dir = __DIR__ . '/uploads/';
             if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
+                mkdir($upload_dir, 0755, true); // Используем 0755 для безопасности
+                echo "Папка uploads создана.<br>";
             }
             $target_path = $upload_dir . $new_filename;
             if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_path)) {
                 $profile_picture_path = 'uploads/' . $new_filename;
+                echo "Изображение успешно загружено.<br>";
+            } else {
+                echo "Ошибка при загрузке изображения.<br>";
             }
+        } else {
+            echo "Недопустимый тип файла. Разрешены только JPG, JPEG и PNG.<br>";
         }
     }
 
@@ -71,11 +85,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $params[':profile_picture'] = $profile_picture_path;
     }
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $affected_rows = $stmt->rowCount();
+        echo "Записей обновлено: $affected_rows<br>";
+    } catch (PDOException $e) {
+        die("Ошибка при обновлении профиля: " . $e->getMessage());
+    }
 
-    // После обновления перенаправляем обратно на профиль
-    header("Location: profile.php");
+    // После обновления перенаправляем обратно на профиль с правильным регистром
+    header("Location: Profile.php");
     exit();
 }
 
@@ -89,15 +109,68 @@ if (!$user) {
 }
 
 // Устанавливаем путь к изображению профиля
-$profile_picture = $user['profile_picture'] ? $user['profile_picture'] : '../app/images/defaultpicture.png';
+$profile_picture = $user['profile_picture'] ? '../php/' . htmlspecialchars($user['profile_picture']) : '../images/defaultpicture.png';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>User Profile</title>
   <link rel="stylesheet" href="../css/profile.css">
+  <style>
+    /* Добавим базовые стили для улучшения внешнего вида */
+    .save-button {
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Зеленый цвет */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .save-button:hover {
+        background-color: #45a049;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 12px;
+    }
+
+    /* Дополнительные стили для формы */
+    form label {
+        display: block;
+        margin-top: 10px;
+    }
+
+    form input, form select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+
+    .admin-button {
+        display: inline-block;
+    }
+
+    .profile-box {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-picture img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .profile-details {
+        margin-left: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -136,7 +209,7 @@ $profile_picture = $user['profile_picture'] ? $user['profile_picture'] : '../app
     <?php endif; ?>
     
     <h2>Edit Personal Information</h2>
-    <form id="editProfileForm" action="profile.php" method="POST" enctype="multipart/form-data">
+    <form id="editProfileForm" action="Profile.php" method="POST" enctype="multipart/form-data">
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" name="first_name" required value="<?php echo htmlspecialchars($user['first_name']); ?>">
       <span id="nameError" class="error-message"></span>
@@ -166,7 +239,7 @@ $profile_picture = $user['profile_picture'] ? $user['profile_picture'] : '../app
       <input type="file" id="profilePicture" name="profile_picture" accept="image/jpeg, image/png">
       <span id="profilePictureError" class="error-message"></span>
 
-      <button type="submit">Save Changes</button>
+      <button type="submit" class="save-button">Save Changes</button>
       <a href="indexUser.php">Back</a>
     </form>
   </div>

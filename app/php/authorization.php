@@ -5,9 +5,10 @@ session_start();
 // Проверка, был ли отправлен POST-запрос
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Подключение к базе данных
-    $dsn = 'mysql:host=db;dbname=supermarket;charset=utf8';
-    $db_username = 'user';
-    $db_password = 'user_password';
+    $dsn = 'mysql:host=sql310.infinityfree.com;dbname=if0_37950136_supermarket;charset=utf8'; // Новый хост и имя базы данных
+    $db_username = 'if0_37950136'; // Новый MySQL Username
+    $db_password = 'tGgX9jy15tX1VF';
+ // Новый MySQL Password
 
     try {
         $pdo = new PDO($dsn, $db_username, $db_password, [

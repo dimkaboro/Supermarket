@@ -8,15 +8,17 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 }
 
 // Database connection
-$dsn = 'mysql:host=db;dbname=supermarket;charset=utf8';
-$username = 'user';
-$password = 'user_password';
+$dsn = 'mysql:host=sql310.infinityfree.com;dbname=if0_37950136_supermarket;charset=utf8'; // Specify host and database name
+$username = 'if0_37950136'; // Your MySQL Username
+$db_password = 'tGgX9jy15tX1VF'; // Your MySQL Password
 
 try {
-    $pdo = new PDO($dsn, $username, $password);
+    // Corrected: use $db_password instead of $password
+    $pdo = new PDO($dsn, $username, $db_password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // echo "Connected successfully"; // Removed or commented out for security
 } catch (PDOException $e) {
-    die("Database connection error: " . $e->getMessage());
+    die("Database connection error: " . $e->getMessage()); // Connection error
 }
 
 // Check if the product ID is provided

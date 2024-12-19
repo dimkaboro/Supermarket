@@ -7,29 +7,16 @@ services:
       - ./app:/var/www/html  # Локальная папка с проектом подключается в контейнер
     ports:
       - "8080:80"  # Порт 80 контейнера доступен на порту 8080 хоста
-    depends_on:
-      - db
-
-  db:
-    image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: supermarket
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user_password
-    volumes:
-      - db_data:/var/lib/mysql  # Хранение данных БД
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql  # Файл для инициализации БД
-    ports:
-      - "3306:3306"
+      DB_HOST: sql310.infinityfree.com
+      DB_NAME: if0_37950136_supermarket
+      DB_USER: if0_37950136
+      DB_PASSWORD: t@gx9jy15tX1VF
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root_password
+      PMA_HOST: sql310.infinityfree.com  # Хост удалённой базы данных
+      MYSQL_ROOT_PASSWORD: t@gx9jy15tX1VF  # Пароль от базы данных InfinityFree
     ports:
       - "8081:80"
-
-volumes:
-  db_data:  # Определение тома для данных MySQL

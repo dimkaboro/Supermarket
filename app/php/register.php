@@ -1,15 +1,16 @@
 <?php
 // Připojení k databázi přes Docker
-$dsn = 'mysql:host=db;dbname=supermarket;charset=utf8'; // Použití názvu kontejneru databáze Docker jako hostitele (db)
-$username = 'user';
-$password = 'user_password';
+$dsn = 'mysql:host=sql310.infinityfree.com;dbname=if0_37950136_supermarket;charset=utf8'; // Укажите хост и имя базы данных
+$username = 'if0_37950136'; // Ваш MySQL Username
+$db_password = 'tGgX9jy15tX1VF';
+ // Ваш MySQL Password
 
 try {
     $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Připojení k databázi bylo úspěšné!<br>"; // Zpráva pro testování připojení
+    echo "Connected successfully"; // Уведомление при успешном подключении
 } catch (PDOException $e) {
-    die("Chyba připojení k databázi: " . $e->getMessage());
+    die("Database connection error: " . $e->getMessage()); // Ошибка при подключении
 }
 
 // Funkce pro očištění zadaných dat
