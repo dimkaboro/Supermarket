@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo = new PDO($dsn, $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
-        die("Помилка підключення до бази даних: " . $e->getMessage());
+        die("Chyba při připojení k databázi: " . $e->getMessage());
     }
 
     $firstName = $_POST['first_name'];
@@ -23,11 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $gender = $_POST['gender'];
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $usernameInput = $_POST['username'];
+    $passwordInput = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, phone, gender, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$firstName, $lastName, $email, $phone, $gender, $username, $password]);
+    $stmt->execute([$firstName, $lastName, $email, $phone, $gender, $usernameInput, $passwordInput]);
 
     header("Location: admin_panel.php");
     exit();
@@ -39,36 +39,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add user</title>
+    <title>Přidat uživatele</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
 
-    <!-- Заголовок -->
+    <!-- Hlavička -->
     <header class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html">
                 <img src="../images/logoo.png" alt="MixMart Logo" class="h-12 w-auto">
             </a>
-            <h1 class="text-2xl font-bold text-green-600">Add user</h1>
+            <h1 class="text-2xl font-bold text-green-600">Přidat uživatele</h1>
         </div>
     </header>
 
-    <!-- Форма добавления пользователя -->
+    <!-- Formulář pro přidání uživatele -->
     <main class="container mx-auto px-4 py-8">
         <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center">Form for adding user</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-700 text-center">Formulář pro přidání uživatele</h2>
             <form method="POST" class="space-y-4">
-                <!-- Ім'я -->
+                <!-- Křestní jméno -->
                 <div>
-                    <label for="first_name" class="block text-sm font-medium text-gray-700">name:</label>
+                    <label for="first_name" class="block text-sm font-medium text-gray-700">Křestní jméno:</label>
                     <input type="text" name="first_name" id="first_name" required 
                            class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
 
-                <!-- Прізвище -->
+                <!-- Příjmení -->
                 <div>
-                    <label for="last_name" class="block text-sm font-medium text-gray-700">last name:</label>
+                    <label for="last_name" class="block text-sm font-medium text-gray-700">Příjmení:</label>
                     <input type="text" name="last_name" id="last_name" required 
                            class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
@@ -80,53 +80,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                            class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
 
-                <!-- Телефон -->
+                <!-- Telefon -->
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700">phone number:</label>
+                    <label for="phone" class="block text-sm font-medium text-gray-700">Telefonní číslo:</label>
                     <input type="tel" name="phone" id="phone" required 
                            class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
 
-                <!-- Пол -->
+                <!-- Pohlaví -->
                 <div>
-                    <label for="gender" class="block text-sm font-medium text-gray-700">Sex:</label>
+                    <label for="gender" class="block text-sm font-medium text-gray-700">Pohlaví:</label>
                     <select name="gender" id="gender" required 
                             class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
-                        <option value="male">Man</option>
-                        <option value="female">Woman</option>
-                        <option value="other">Another</option>
+                        <option value="male">Muž</option>
+                        <option value="female">Žena</option>
+                        <option value="other">Jiné</option>
                     </select>
                 </div>
 
-                <!-- Ім'я користувача -->
+                <!-- Uživatelské jméno -->
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">Users name:</label>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Uživatelské jméno:</label>
                     <input type="text" name="username" id="username" required 
                            class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
 
-                <!-- Пароль -->
+                <!-- Heslo -->
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Heslo:</label>
                     <input type="password" name="password" id="password" required 
                            class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
 
-                <!-- Кнопка отправки -->
+                <!-- Tlačítko pro odeslání -->
                 <div>
                     <button type="submit" 
                             class="w-full bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition">
-                        Add
+                        Přidat
                     </button>
                 </div>
             </form>
         </div>
     </main>
 
-    <!-- Подвал -->
+    <!-- Patička -->
     <footer class="bg-white border-t mt-8">
         <div class="container mx-auto px-4 py-4 text-center text-gray-600">
-            <p>© 2024 MixMart. All rights reserved.</p>
+            <p>© 2024 MixMart. Všechna práva vyhrazena.</p>
         </div>
     </footer>
 </body>

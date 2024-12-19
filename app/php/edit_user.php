@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Перевірка, чи користувач є адміністратором
+// Check if the user is an administrator
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: authorization.html"); // Якщо не адмін, перенаправляємо на сторінку авторизації
+    header("Location: authorization.html"); // If not admin, redirect to authorization page
     exit();
 }
 
-// Підключення до бази даних
+// Database connection
 $dsn = 'mysql:host=db;dbname=supermarket;charset=utf8';
 $username = 'user';
 $password = 'user_password';
@@ -16,44 +16,44 @@ try {
     $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Помилка підключення до бази даних: " . $e->getMessage());
+    die("Database connection error: " . $e->getMessage());
 }
 
-// Перевірка, чи передано ID користувача
+// Check if the user ID is provided
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    die("Помилка: ID користувача не вказано.");
+    die("Error: User ID not specified.");
 }
 
 $userId = intval($_GET['id']);
 
-// Отримання даних користувача з бази даних
+// Fetch user data from the database
 try {
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
     $stmt->execute(['id' => $userId]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        die("Помилка: Користувача з таким ID не знайдено.");
+        die("Error: No user found with the specified ID.");
     }
 } catch (PDOException $e) {
-    die("Помилка під час отримання даних користувача: " . $e->getMessage());
+    die("Error while fetching user data: " . $e->getMessage());
 }
 
-// Оновлення даних користувача, якщо форма була відправлена
+// Update user data if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = isset($_POST['first_name']) ? htmlspecialchars(trim($_POST['first_name'])) : '';
     $lastName = isset($_POST['last_name']) ? htmlspecialchars(trim($_POST['last_name'])) : '';
     $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
     $phone = isset($_POST['phone']) ? htmlspecialchars(trim($_POST['phone'])) : '';
     $gender = isset($_POST['gender']) ? htmlspecialchars(trim($_POST['gender'])) : '';
-    $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
-    $role = isset($_POST['role']) ? htmlspecialchars(trim($_POST['role'])) : ''; // Додано поле для ролі
+    $usernameInput = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
+    $role = isset($_POST['role']) ? htmlspecialchars(trim($_POST['role'])) : ''; // Added role field
 
-    // Перевірка, чи всі поля заповнені
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($gender) || empty($username) || empty($role)) {
-        $errorMessage = "Помилка: Будь ласка, заповніть всі поля.";
+    // Check if all fields are filled
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($gender) || empty($usernameInput) || empty($role)) {
+        $errorMessage = "Error: Please fill in all fields.";
     } else {
-        // Оновлення даних користувача в базі даних
+        // Update user data in the database
         try {
             $stmt = $pdo->prepare("UPDATE users SET 
                 first_name = :first_name, 
@@ -71,59 +71,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'email' => $email,
                 'phone' => $phone,
                 'gender' => $gender,
-                'username' => $username,
-                'role' => $role, // Додано роль
+                'username' => $usernameInput,
+                'role' => $role, // Added role
                 'id' => $userId
             ]);
 
-            $successMessage = "Дані користувача успішно оновлено.";
+            $successMessage = "User data successfully updated.";
         } catch (PDOException $e) {
-            $errorMessage = "Помилка під час оновлення даних користувача: " . $e->getMessage();
+            $errorMessage = "Error while updating user data: " . $e->getMessage();
         }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редагування користувача</title>
+    <title>Edit User</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 flex items-center justify-center min-h-screen">
 
-    <!-- Основной контейнер -->
+    <!-- Main Container -->
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Редагування користувача</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit User</h1>
 
-        <!-- Ссылка на админпанель -->
-        <a href="admin_panel.php" class="text-green-500 hover:text-green-600 mb-4 block text-center">Повернутися до адмінпанелі</a>
+        <!-- Link to Admin Panel -->
+        <a href="admin_panel.php" class="text-green-500 hover:text-green-600 mb-4 block text-center">Return to Admin Panel</a>
 
-        <!-- Сообщения об ошибке/успехе -->
+        <!-- Error/Success Messages -->
         <?php if (isset($errorMessage)): ?>
-            <p class="text-red-500 mb-4"><?php echo $errorMessage; ?></p>
+            <p class="text-red-500 mb-4"><?php echo htmlspecialchars($errorMessage); ?></p>
         <?php endif; ?>
 
         <?php if (isset($successMessage)): ?>
-            <p class="text-green-500 mb-4"><?php echo $successMessage; ?></p>
+            <p class="text-green-500 mb-4"><?php echo htmlspecialchars($successMessage); ?></p>
         <?php endif; ?>
 
-        <!-- Форма редактирования -->
+        <!-- Edit Form -->
         <form method="POST" class="space-y-4">
-            <!-- Имя -->
+            <!-- First Name -->
             <div>
-                <label for="first_name" class="block text-gray-700 font-medium">Ім'я:</label>
+                <label for="first_name" class="block text-gray-700 font-medium">First Name:</label>
                 <input type="text" id="first_name" name="first_name" 
                        value="<?php echo htmlspecialchars($user['first_name']); ?>" 
                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
                        required>
             </div>
 
-            <!-- Фамилия -->
+            <!-- Last Name -->
             <div>
-                <label for="last_name" class="block text-gray-700 font-medium">Прізвище:</label>
+                <label for="last_name" class="block text-gray-700 font-medium">Last Name:</label>
                 <input type="text" id="last_name" name="last_name" 
                        value="<?php echo htmlspecialchars($user['last_name']); ?>" 
                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
@@ -139,54 +139,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        required>
             </div>
 
-            <!-- Телефон -->
+            <!-- Phone -->
             <div>
-                <label for="phone" class="block text-gray-700 font-medium">Телефон:</label>
+                <label for="phone" class="block text-gray-700 font-medium">Phone:</label>
                 <input type="tel" id="phone" name="phone" 
                        value="<?php echo htmlspecialchars($user['phone']); ?>" 
                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
                        required>
             </div>
 
-            <!-- Пол -->
+            <!-- Gender -->
             <div>
-                <label for="gender" class="block text-gray-700 font-medium">Пohlaví:</label>
+                <label for="gender" class="block text-gray-700 font-medium">Gender:</label>
                 <select id="gender" name="gender" 
                         class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
                         required>
-                    <option value="male" <?php echo $user['gender'] === 'male' ? 'selected' : ''; ?>>Мужской</option>
-                    <option value="female" <?php echo $user['gender'] === 'female' ? 'selected' : ''; ?>>Женский</option>
-                    <option value="other" <?php echo $user['gender'] === 'other' ? 'selected' : ''; ?>>Другое</option>
+                    <option value="male" <?php echo $user['gender'] === 'male' ? 'selected' : ''; ?>>Male</option>
+                    <option value="female" <?php echo $user['gender'] === 'female' ? 'selected' : ''; ?>>Female</option>
+                    <option value="other" <?php echo $user['gender'] === 'other' ? 'selected' : ''; ?>>Other</option>
                 </select>
             </div>
 
-            <!-- Имя пользователя -->
+            <!-- Username -->
             <div>
-                <label for="username" class="block text-gray-700 font-medium">Ім'я користувача:</label>
+                <label for="username" class="block text-gray-700 font-medium">Username:</label>
                 <input type="text" id="username" name="username" 
                        value="<?php echo htmlspecialchars($user['username']); ?>" 
                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
                        required>
             </div>
 
-            <!-- Роль -->
+            <!-- Role -->
             <div>
-                <label for="role" class="block text-gray-700 font-medium">Роль:</label>
+                <label for="role" class="block text-gray-700 font-medium">Role:</label>
                 <select id="role" name="role" 
                         class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring focus:ring-green-300 focus:outline-none"
                         required>
-                    <option value="user" <?php echo $user['role'] === 'user' ? 'selected' : ''; ?>>Користувач</option>
-                    <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Адміністратор</option>
+                    <option value="user" <?php echo $user['role'] === 'user' ? 'selected' : ''; ?>>User</option>
+                    <option value="admin" <?php echo $user['role'] === 'admin' ? 'selected' : ''; ?>>Administrator</option>
                 </select>
             </div>
 
-            <!-- Кнопки -->
+            <!-- Buttons -->
             <div class="flex justify-between items-center mt-6">
                 <a href="admin_panel.php" 
-                   class="text-gray-600 hover:text-gray-900">Повернутися до адмінпанелі</a>
+                   class="text-gray-600 hover:text-gray-900">Return to Admin Panel</a>
                 <button type="submit" 
                         class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">
-                    Зберегти зміни
+                    Save Changes
                 </button>
             </div>
         </form>

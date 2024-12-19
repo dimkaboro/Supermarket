@@ -74,13 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
 
-    // После обновления можно либо перенаправить обратно на профиль, либо просто продолжить
+    // После обновления перенаправляем обратно на профиль
     header("Location: profile.php");
     exit();
 }
 
-// Если форма не отправлена, извлекаем текущие данные пользователя
-$stmt = $pdo->prepare("SELECT first_name, last_name, email, phone, gender, profile_picture FROM users WHERE id = :id LIMIT 1");
+// Если форма не отправлена, извлекаем текущие данные пользователя, включая роль
+$stmt = $pdo->prepare("SELECT first_name, last_name, email, phone, gender, profile_picture, role FROM users WHERE id = :id LIMIT 1");
 $stmt->execute([':id' => $user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -92,33 +92,33 @@ if (!$user) {
 $profile_picture = $user['profile_picture'] ? $user['profile_picture'] : '../app/images/defaultpicture.png';
 ?>
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profil uživatele</title>
+  <title>User Profile</title>
   <link rel="stylesheet" href="../css/profile.css">
 </head>
 <body>
   <div class="container">
-    <h1>Profil uživatele</h1>
+    <h1>User Profile</h1>
     <div class="profile-box">
       <div class="profile-picture">
-        <img id="profileImage" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profilová fotografie">
+        <img id="profileImage" src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture">
       </div>
       <div class="profile-details">
-        <p><strong>Jméno:</strong> <span id="profileFirstName"><?php echo htmlspecialchars($user['first_name']); ?></span></p>
-        <p><strong>Příjmení:</strong> <span id="profileLastName"><?php echo htmlspecialchars($user['last_name']); ?></span></p>
+        <p><strong>First Name:</strong> <span id="profileFirstName"><?php echo htmlspecialchars($user['first_name']); ?></span></p>
+        <p><strong>Last Name:</strong> <span id="profileLastName"><?php echo htmlspecialchars($user['last_name']); ?></span></p>
         <p><strong>Email:</strong> <span id="profileEmail"><?php echo htmlspecialchars($user['email']); ?></span></p>
-        <p><strong>Telefon:</strong> <span id="profilePhone"><?php echo htmlspecialchars($user['phone']); ?></span></p>
-        <p><strong>Pohlaví:</strong> <span id="profileGender">
+        <p><strong>Phone:</strong> <span id="profilePhone"><?php echo htmlspecialchars($user['phone']); ?></span></p>
+        <p><strong>Gender:</strong> <span id="profileGender">
           <?php
           if ($user['gender'] === 'male') {
-              echo "Mužské";
+              echo "Male";
           } elseif ($user['gender'] === 'female') {
-              echo "Ženské";
+              echo "Female";
           } elseif ($user['gender'] === 'other') {
-              echo "Jiné";
+              echo "Other";
           } else {
               echo "";
           }
@@ -126,13 +126,22 @@ $profile_picture = $user['profile_picture'] ? $user['profile_picture'] : '../app
         </span></p>
       </div>
     </div>
-    <h2>Upravit osobní údaje</h2>
+    
+    <?php if ($user['role'] === 'admin'): ?>
+      <div class="admin-button-container" style="text-align: center; margin-top: 20px;">
+        <a href="admin_panel.php" class="admin-button" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+          Admin Panel
+        </a>
+      </div>
+    <?php endif; ?>
+    
+    <h2>Edit Personal Information</h2>
     <form id="editProfileForm" action="profile.php" method="POST" enctype="multipart/form-data">
-      <label for="firstName">Jméno:</label>
+      <label for="firstName">First Name:</label>
       <input type="text" id="firstName" name="first_name" required value="<?php echo htmlspecialchars($user['first_name']); ?>">
       <span id="nameError" class="error-message"></span>
 
-      <label for="lastName">Příjmení:</label>
+      <label for="lastName">Last Name:</label>
       <input type="text" id="lastName" name="last_name" required value="<?php echo htmlspecialchars($user['last_name']); ?>">
       <span id="lastNameError" class="error-message"></span>
 
@@ -140,24 +149,24 @@ $profile_picture = $user['profile_picture'] ? $user['profile_picture'] : '../app
       <input type="email" id="email" name="email" required value="<?php echo htmlspecialchars($user['email']); ?>">
       <span id="emailError" class="error-message"></span>
 
-      <label for="phone">Telefon:</label>
+      <label for="phone">Phone:</label>
       <input type="tel" id="phone" name="phone" required pattern="^\+?\d{10,13}$" placeholder="+420123456789" value="<?php echo htmlspecialchars($user['phone']); ?>">
       <span id="phoneError" class="error-message"></span>
 
-      <label for="gender">Pohlaví:</label>
+      <label for="gender">Gender:</label>
       <select id="gender" name="gender" required>
-        <option value="">--Vyberte pohlaví--</option>
-        <option value="male" <?php echo ($user['gender'] === 'male') ? 'selected' : ''; ?>>Mužské</option>
-        <option value="female" <?php echo ($user['gender'] === 'female') ? 'selected' : ''; ?>>Ženské</option>
-        <option value="other" <?php echo ($user['gender'] === 'other') ? 'selected' : ''; ?>>Jiné</option>
+        <option value="">--Select Gender--</option>
+        <option value="male" <?php echo ($user['gender'] === 'male') ? 'selected' : ''; ?>>Male</option>
+        <option value="female" <?php echo ($user['gender'] === 'female') ? 'selected' : ''; ?>>Female</option>
+        <option value="other" <?php echo ($user['gender'] === 'other') ? 'selected' : ''; ?>>Other</option>
       </select>
       <span id="genderError" class="error-message"></span>
 
-      <label for="profilePicture">Profilová fotografie:</label>
+      <label for="profilePicture">Profile Picture:</label>
       <input type="file" id="profilePicture" name="profile_picture" accept="image/jpeg, image/png">
       <span id="profilePictureError" class="error-message"></span>
 
-      <button type="submit">Uložit změny</button>
+      <button type="submit">Save Changes</button>
       <a href="indexUser.php">Back</a>
     </form>
   </div>
